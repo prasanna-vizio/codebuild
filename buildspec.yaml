@@ -1,0 +1,42 @@
+version: 0.2
+
+env:
+  variables:
+    REGION: "us-west-2"
+    CAPABILITIES: "CAPABILITY_NAMED_IAM"
+    NETWORK_STACK_NAME: "NetworkStack"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+      ruby: 2.6
+    commands:
+      - echo Installing AWS CLI and jq
+      - pip3 install awscli --upgrade --quiet
+      - pip3 install cfn-lint --quiet
+      - gem install cfn-nag
+      - yum install -y jq
+
+  pre_build:
+    commands:
+      - echo Logging in to AWS...
+      - aws --version
+      - jq --version
+
+  build:
+    commands:
+      - cd ./templates
+      - cfn-lint *.yaml
+      - cfn_nag_scan -i *.yaml
+      - echo Deploying Network Stack
+      - aws cloudformation deploy --template-file templates/s3.yaml --stack-name $NETWORK_STACK_NAME --region $REGION --capabilities $CAPABILITIES 
+      
+  post_build:
+    commands:
+      - echo All stacks deployed successfully.
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
