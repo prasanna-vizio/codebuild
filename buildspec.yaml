@@ -13,8 +13,8 @@ phases:
       ruby: 2.6.0
     commands:
       - echo Installing AWS CLI and jq
-      - pip3 install awscli --upgrade --quiet
-      - pip3 install cfn-lint --quiet
+      - pip install awscli --upgrade --quiet
+      - pip install cfn-lint --quiet
       - gem install cfn-nag
       - yum install -y jq
 
@@ -27,8 +27,8 @@ phases:
   build:
     commands:
       - cd ./templates
-      - cfn-lint templates/*.yaml
-      - cfn_nag_scan -i templates/*.yaml
+      - cfn-lint *.yaml
+      - cfn_nag_scan -i *.yaml
       - echo Deploying Network Stack
       - aws cloudformation deploy --template-file templates/s3.yaml --stack-name $NETWORK_STACK_NAME --region $REGION --capabilities $CAPABILITIES 
       
