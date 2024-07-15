@@ -28,7 +28,7 @@ phases:
       - cd ./templates
       - cfn-lint *.yaml
       - echo Deploying Network Stack
-      - aws cloudformation create-stack --stack-name MyStack --template-body file://s3.yaml --parameters ParameterKey=REGION,ParameterValue=us-west-2 --capabilities CAPABILITY_NAMED_IAM
+      - aws cloudformation create-stack --stack-name MyStack --template-body file://s3.yaml --capabilities CAPABILITY_NAMED_IAM
       
   post_build:
     commands:
