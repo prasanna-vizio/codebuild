@@ -7,14 +7,24 @@ Resources:
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced    
-    BucketPolicy:
-      Type: 'AWS::S3::BucketPolicy'
-      Properties:
-        Bucket: !Ref S3Bucket
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal: '*'
-              Action: 's3:GetObject'
-              Resource: !Sub 'arn:aws:s3:::${S3Bucket}/*          
+  SampleBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Action:
+            - 's3:GetObject'
+          Effect: Allow
+          Resource: !Join
+            - ''
+            - - 'arn:aws:s3:::'
+              - !Ref S3Bucket
+              - /*
+          Principal: '*'
+          Condition:
+            StringLike:
+              'aws:Referer':
+                - 'http://www.example.com/*'
+                - 'http://example.net/*'
