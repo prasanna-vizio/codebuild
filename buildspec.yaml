@@ -28,7 +28,7 @@ phases:
       - cd ./templates
       - cfn-lint *.yaml
       - echo Deploying Network Stack
-      - aws cloudformation deploy --template-file templates/s3.yaml --stack-name $NETWORK_STACK_NAME --region $REGION --capabilities $CAPABILITIES 
+      - aws cloudformation deploy --template-file s3.yaml --stack-name $NETWORK_STACK_NAME --region $REGION --capabilities $CAPABILITIES 
       
   post_build:
     commands:
