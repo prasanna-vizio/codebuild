@@ -10,7 +10,7 @@ phases:
   install:
     runtime-versions:
       python: 3.8
-      ruby: 2.6.0
+      ruby: 3.3.0
     commands:
       - echo Installing AWS CLI and jq
       - pip install awscli --upgrade --quiet
