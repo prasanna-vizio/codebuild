@@ -15,7 +15,6 @@ phases:
       - echo Installing AWS CLI and jq
       - pip install awscli --upgrade --quiet
       - pip install cfn-lint --quiet
-      - gem install cfn-nag
       - yum install -y jq
 
   pre_build:
