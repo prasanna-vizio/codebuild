@@ -2,7 +2,6 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
       BucketName: aws2024ac-13072024
       OwnershipControls:
         Rules:
